@@ -22,7 +22,7 @@ def add_track():
 
     random_uuid = str(uuid.uuid4())
     track = Track(uuid=random_uuid, data=file.read())
-    url = 'https://bookrec-file-hosting/api/' + random_uuid
+    url = 'https://bookrec-file-hosting.herokuapp.com/api/' + random_uuid
 
     if track:
         db.session().add(track)
