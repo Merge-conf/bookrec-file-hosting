@@ -1,7 +1,10 @@
 # flask-app
 from flask import Flask
+from flask_cors import CORS
 from flask_uuid import FlaskUUID
+
 app = Flask(__name__)
+CORS(app)
 FlaskUUID(app)
 
 # database
