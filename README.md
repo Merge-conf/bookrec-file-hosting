@@ -10,7 +10,7 @@ Things you'll need before copying the files:
 
 1. Copy the files:
 
->git clone https://github.com/merge-conf/bookrec-backend.git
+>git clone git@github.com:Merge-conf/bookrec-file-hosting.git
 
 2. Navigate to /bookrec-backend/
 
