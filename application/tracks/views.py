@@ -9,7 +9,6 @@ import os
 def add_track():
 
     # Validate the audio file
-    file = ''
     if request.files:
         file = request.files['track']
     else:
@@ -17,19 +16,17 @@ def add_track():
 
     if file.content_length > 15.250e+6:
         return jsonify({'error': 'audio file is too big'}), 413
-    if not file.content_type in ['audio/mpeg', 'audio/mp3', 'audio/x-wav']:
+    if file.content_type not in ['audio/mpeg', 'audio/mp3', 'audio/x-wav']:
         return jsonify({'error': 'only wav and mp3 accepted'}), 415
 
     random_uuid = str(uuid.uuid4())
     track = Track(uuid=random_uuid, data=file.read())
     url = 'https://bookrec-file-hosting.herokuapp.com/api/' + random_uuid
 
-    if track:
-        db.session().add(track)
-        db.session().commit()
-        return jsonify({'url': url}), 201
-    else:
-        return jsonify({'error': 'validation error'}), 400
+    db.session().add(track)
+    db.session().commit()
+    return jsonify({'url': url}), 201
+
 
 
 @app.route('/api/<uuid>')
