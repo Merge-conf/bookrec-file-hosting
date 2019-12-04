@@ -9,27 +9,24 @@ import os
 def add_track():
 
     # Validate the audio file
-    file = ''
     if request.files:
         file = request.files['track']
     else:
-        return jsonify({'error': 'file not found'}), 400
+        return jsonify({'error': 'audio track required'}), 400
 
     if file.content_length > 15.250e+6:
         return jsonify({'error': 'audio file is too big'}), 413
-    if not file.content_type in ['audio/mpeg', 'audio/mp3', 'audio/x-wav']:
-        return jsonify({'error': 'only wav and mp3 accepted'}), 400
+    if file.content_type not in ['audio/mpeg', 'audio/mp3', 'audio/x-wav']:
+        return jsonify({'error': 'only wav and mp3 accepted'}), 415
 
     random_uuid = str(uuid.uuid4())
     track = Track(uuid=random_uuid, data=file.read())
     url = 'https://bookrec-file-hosting.herokuapp.com/api/' + random_uuid
 
-    if track:
-        db.session().add(track)
-        db.session().commit()
-        return jsonify({'url': url}), 201
-    else:
-        return jsonify({'error': 'validation error'}), 400
+    db.session().add(track)
+    db.session().commit()
+    return jsonify({'url': url}), 201
+
 
 
 @app.route('/api/<uuid>')
@@ -39,7 +36,7 @@ def get_track(uuid):
         return send_file(BytesIO(track.data), attachment_filename='download',
                          as_attachment=True)
     else:
-        abort(404)
+        return jsonify({'error': 'file not found'}), 404
 
 
 @app.route('/api/<uuid>', methods=['DELETE'])
@@ -49,6 +46,6 @@ def delete_track(uuid):
         db.session.delete(track)
         db.session.commit()
     else:
-        abort(403)
+        return jsonify({'error': 'file not found'}), 404
 
-    return jsonify({'success': 'track deleted'}), 204
+    return jsonify({'success': 'file deleted'}), 204

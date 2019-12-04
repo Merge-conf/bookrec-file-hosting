@@ -31,3 +31,4 @@ Things you'll need before copying the files:
 >python3 run.py
 
 7. To view the application navigate to *http://127.0.0.1:5000* or *http://localhost:5000* on your preferred browser.
+
