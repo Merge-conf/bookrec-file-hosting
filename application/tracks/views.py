@@ -45,7 +45,6 @@ def delete_track(uuid):
     if track:
         db.session.delete(track)
         db.session.commit()
+        return jsonify({'success': 'file deleted'}), 204
     else:
         return jsonify({'error': 'file not found'}), 404
-
-    return jsonify({'success': 'file deleted'}), 204
