@@ -23,8 +23,8 @@ def add_track():
     track = Track(uuid=random_uuid, data=file.read())
     url = 'https://bookrec-file-hosting.herokuapp.com/api/' + random_uuid
 
-    db.session().add(track)
-    db.session().commit()
+    db.session.add(track)
+    db.session.commit()
     return jsonify({'url': url}), 201
 
 
