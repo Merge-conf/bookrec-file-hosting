@@ -16,8 +16,8 @@ def add_track():
 
     if file.content_length > 15.250e+6:
         return jsonify({'error': 'audio file is too big'}), 413
-    if file.content_type not in ['audio/mpeg', 'audio/mp3', 'audio/x-wav']:
-        return jsonify({'error': 'only wav and mp3 accepted'}), 415
+    if file.content_type not in ['audio/mpeg', 'audio/mp3']:
+        return jsonify({'error': 'only mp3 accepted'}), 415
 
     random_uuid = str(uuid.uuid4())
     track = Track(uuid=random_uuid, data=file.read())
