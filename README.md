@@ -12,7 +12,7 @@ Things you'll need before copying the files:
 
 >git clone git@github.com:Merge-conf/bookrec-file-hosting.git
 
-2. Navigate to /bookrec-backend/
+2. Navigate to /bookrec-file-hosting/
 
 3. Create a virtual environment for dependency management:
 
@@ -30,5 +30,5 @@ Things you'll need before copying the files:
 
 >python3 run.py
 
-7. To view the application navigate to *http://127.0.0.1:5000* or *http://localhost:5000* on your preferred browser.
+7. To view the application navigate to *http://localhost:5000* on your preferred browser.
 
